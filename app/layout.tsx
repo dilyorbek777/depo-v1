@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { ThemeProvider } from '@/components/shared/theme-provider'
+import Navbar from './(root)/components/Navbar'
+import { ConvexClientProvider } from '@/components/shared/convex-provider'
+import Footer from './(root)/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +20,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ConvexClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </ConvexClientProvider>
+      </body>
     </html>
   )
 }
